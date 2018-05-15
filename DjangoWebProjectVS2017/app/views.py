@@ -41,6 +41,19 @@ def contact(request):
         }
     )
 
+def categorias(request):
+    category_list = []
+    question_list = Question.objects.order_by('-pub_date')
+    for q in question_list:
+        if q.tema not in category_list:
+            category_list.append(q.tema)
+    return render(request, 'polls/categoriaas.html', {'category_list': category_list})
+
+
+def index_category(request, category):
+    question_list=Question.objects.filter(tema=category)
+    return render(request, 'polls/categoriaSeleccionada.html', {'question_list': question_list})
+
 def about(request):
     """Renders the about page."""
     assert isinstance(request, HttpRequest)
@@ -104,19 +117,29 @@ def question_new(request):
         return render(request, 'polls/question_new.html', {'form': form})
 
 def choice_add(request, question_id):
+
         question = Question.objects.get(id = question_id)
-        if request.method =='POST':
-            form = ChoiceForm(request.POST)
-            if form.is_valid():
-                choice = form.save(commit = False)
-                choice.question = question
-                choice.vote = 0
-                choice.save()         
-                #form.save()
-        else: 
+
+        listaRespuestas = Choice.objects.filter(question=question)
+        if (len(listaRespuestas) < 4) :
+           
+            if request.method =='POST':
+                form = ChoiceForm(request.POST)
+                if form.is_valid():
+                    choice = form.save(commit = False)
+                    choice.question = question
+                    choice.vote = 0
+                    choice.save()         
+                    #form.save()
+                    return render(request, 'polls/choice_new.html', {'title':'Pregunta:'+ question.question_text,'form': form, 'message': "Respuesta insertada."})
+            else: 
+                form = ChoiceForm()
+            #return render_to_response ('choice_new.html', {'form': form, 'poll_id': poll_id,}, context_instance = RequestContext(request),)
+            return render(request, 'polls/choice_new.html', {'title':'Pregunta:'+ question.question_text,'form': form})
+        else:
             form = ChoiceForm()
-        #return render_to_response ('choice_new.html', {'form': form, 'poll_id': poll_id,}, context_instance = RequestContext(request),)
-        return render(request, 'polls/choice_new.html', {'title':'Pregunta:'+ question.question_text,'form': form})
+            form.fields['choice_text'].widget.attrs['readonly'] = True
+            return render(request, 'polls/choice_new.html', {'title':'Pregunta:'+ question.question_text,'form': form,'message': "Error, numero maximo de opciones alcanzado"})
 
 def chart(request, question_id):
     q=Question.objects.get(id = question_id)

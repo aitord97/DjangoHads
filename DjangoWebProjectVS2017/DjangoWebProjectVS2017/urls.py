@@ -47,11 +47,14 @@ urlpatterns = [
     url(r'^users/', app.views.users_detail, name='users_detail'),
     url(r'^chart/(?P<question_id>\d+)/$', app.views.chart, name='chart'),
     url(r'^admin/', include(admin.site.urls)),
+    url(r'^polls/categoria/(?P<category>\w+)/$', app.views.index_category, name='index_category'),
+    url(r'^polls/categorias', app.views.categorias, name='categorias'),
     url(r'^polls/add/', app.views.question_new, name='add'),
     url(r'^polls/choice_add/(?P<question_id>\d+)/$', app.views.choice_add, name='choice_add'),
     url(r'^(?P<question_id>\d+)/results/$', app.views.results, name='results'),
     url(r'^polls/(?P<question_id>\d+)/$', app.views.detail, name='detail'),
     url(r'^polls/(?P<question_id>\d+)/vote/$', app.views.vote, name='vote'),
     url(r'^polls/', app.views.index, name='index'),
+    
    
 ]

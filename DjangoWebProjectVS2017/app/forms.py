@@ -25,9 +25,15 @@ class QuestionForm(forms.ModelForm):
             }
         ))
 
+        respCorrecta = forms.IntegerField(widget=forms.NumberInput(
+           attrs={
+               'class' : 'form-control', 'type' :'Number',
+            }
+        ))
+
         class Meta:
-            model = Question
-            fields = ('question_text','tema',)
+                model = Question
+                fields = ('question_text','tema','respCorrecta',)
             
 
 class ChoiceForm(forms.ModelForm):

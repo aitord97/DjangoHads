@@ -1,0 +1,16 @@
+﻿{% extends "app/layout.html" %}
+{% block content %}
+
+<h1>Categorias</h1>
+
+{% if category_list %}
+    <ul>
+     {% for category in category_list %}
+        <li><a href="{% url 'index_category' category %}">{{category}}</a>/></li>
+     {% endfor %}
+    </ul>
+{% else %}
+    <p>No hay categorias</p>
+{% endif %}
+
+{% endblock %}
