@@ -92,6 +92,8 @@
     <Content Include="app\templates\polls\user_new.html" />
     <Content Include="app\templates\polls\question_new.html" />
     <Content Include="app\templates\polls\results.html" />
+    <None Include="django1823 - FTP.pubxml" />
+    <None Include="django1823 - Web Deploy.pubxml" />
     <Content Include="requirements.txt" />
     <Content Include="db.sqlite3" />
     <Content Include="app\static\app\content\bootstrap.css" />

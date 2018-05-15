@@ -41,7 +41,7 @@ def contact(request):
         }
     )
 
-def categorias(request):
+def temas(request):
     category_list = []
     question_list = Question.objects.order_by('-pub_date')
     for q in question_list:
@@ -50,8 +50,8 @@ def categorias(request):
     return render(request, 'polls/categoriaas.html', {'category_list': category_list})
 
 
-def index_category(request, category):
-    question_list=Question.objects.filter(tema=category)
+def index_category(request, tema):
+    question_list=Question.objects.filter(tema=tema)
     return render(request, 'polls/categoriaSeleccionada.html', {'question_list': question_list})
 
 def about(request):
@@ -112,6 +112,7 @@ def question_new(request):
                 question.save()
                 #return redirect('detail', pk=question_id)
                 #return render(request, 'polls/index.html', {'title':'Respuestas posibles','question': question})
+                return render(request, 'polls/question_new.html', {'form': form, 'message': 'Pregunta insertada correctamente'})
         else:
             form = QuestionForm()
         return render(request, 'polls/question_new.html', {'form': form})

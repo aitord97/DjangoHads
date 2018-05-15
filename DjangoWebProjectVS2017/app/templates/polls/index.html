@@ -4,7 +4,7 @@
 <h2>{{ title }}.</h2>
 <h3>{{ message }}</h3>
 
-<h3><a href="categorias">Temas</a></h3>
+<h3>Todas las preguntas</h3>
 {% if latest_question_list %}
     <ul>
     {% for question in latest_question_list %}
@@ -15,9 +15,9 @@
 {% else %}
     <p>No polls are available.</p>
 {% endif %}
-<a href="index.html">index.html</a>
+<h3><a href="temas">Temas</a></h3>
 {% if request.user.is_authenticated %}
-<a href="{% url 'add' %}"><h2>Insertar pregunta</h2></a> 
+<a href="{% url 'add' %}"><h3>Insertar pregunta</h3></a> 
 {% endif %}
 
 {% endblock %}
