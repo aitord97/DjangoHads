@@ -139,7 +139,7 @@ def choice_add(request, question_id):
             return render(request, 'polls/choice_new.html', {'title':'Pregunta:'+ question.question_text,'form': form})
         else:
             form = ChoiceForm()
-            form.fields['choice_text'].widget.attrs['readonly'] = True
+            form.fields['choice_text'].widget.attrs['disabled'] = True
             return render(request, 'polls/choice_new.html', {'title':'Pregunta:'+ question.question_text,'form': form,'message': "Error, numero maximo de opciones alcanzado"})
 
 def chart(request, question_id):
